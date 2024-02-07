@@ -3,13 +3,20 @@
 import React, { useState } from 'react';
 
 function Divide() {
+  const [isValuePresent, setIsValuePresent] = useState(true);
   const [divide, setDivide] = useState(0);
   const [firstValue, setFirstValue] = useState();
   const [secondValue, setSecondValue] = useState();
 
   const handleDivide = () => {
+    setIsValuePresent(true);
     // ensure that the values are numbers
-    setDivide(Number(firstValue) + Number(secondValue));
+    if (firstValue && secondValue) {
+      setDivide(Number(firstValue) + Number(secondValue));
+    } else {
+      setIsValuePresent(false);
+      setDivide(0);
+    }
   };
 
   const handleFirstValueChange = (e) => {
@@ -31,7 +38,7 @@ function Divide() {
       <button type="button" onClick={handleDivide}>DIVIDE!!</button>
       <div>
         <h3>And your result is...</h3>
-        <h4>{divide}</h4>
+        <h4>{isValuePresent ? divide : 'THERE ARE NO VALUES???'}</h4>
       </div>
     </div>
   );

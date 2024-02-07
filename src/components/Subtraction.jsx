@@ -4,12 +4,19 @@ import React, { useState } from 'react';
 
 function Subtract() {
   const [subtract, setSubtract] = useState(0);
+  const [isValuePresent, setIsValuePresent] = useState(true);
   const [firstValue, setFirstValue] = useState();
   const [secondValue, setSecondValue] = useState();
 
   const handleSubtract = () => {
+    setIsValuePresent(true);
     // ensure that the values are numbers
-    setSubtract(Number(firstValue) + Number(secondValue));
+    if (firstValue && secondValue) {
+      setSubtract(Number(firstValue) + Number(secondValue));
+    } else {
+      setIsValuePresent(false);
+      setSubtract(0);
+    }
   };
 
   const handleFirstValueChange = (e) => {
@@ -31,7 +38,7 @@ function Subtract() {
       <button type="button" onClick={handleSubtract}>SUBTRACT!!</button>
       <div>
         <h3>And your result is...</h3>
-        <h4>{subtract}</h4>
+        <h4>{isValuePresent ? subtract : 'THERE ARE NO VALUES??'}</h4>
       </div>
     </div>
   );

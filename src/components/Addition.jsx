@@ -3,13 +3,20 @@
 import React, { useState } from 'react';
 
 function Addition() {
+  const [isValuePresent, setIsValuePresent] = useState(true);
   const [added, setAdded] = useState(0);
   const [firstValue, setFirstValue] = useState();
   const [secondValue, setSecondValue] = useState();
 
   const handleAdd = () => {
+    setIsValuePresent(true);
     // ensure that the values are numbers
-    setAdded(Number(firstValue) + Number(secondValue));
+    if (firstValue && secondValue) {
+      setAdded(Number(firstValue) + Number(secondValue));
+    } else {
+      setIsValuePresent(false);
+      setAdded(0);
+    }
   };
 
   const handleFirstValueChange = (e) => {
@@ -31,7 +38,7 @@ function Addition() {
       <button type="button" onClick={handleAdd}>ADD!!</button>
       <div>
         <h3>And your result is...</h3>
-        <h4>{added}</h4>
+        <h4>{isValuePresent ? added : 'THERE ARE NO VALUES??'}</h4>
       </div>
     </div>
   );
